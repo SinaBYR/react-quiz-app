@@ -1,6 +1,8 @@
+import { Layout } from "./components/Layout/Layout"
+
 const App: () => JSX.Element = () => {
     return (
-        <div></div>
+        <Layout />
     )
 }
 
