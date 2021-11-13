@@ -5,5 +5,15 @@ export const ShowcaseStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 90vh;
+    text-align: center;
+
+    & > h1 {
+        font-size: 4rem;
+        line-height: 1;
+    }
+
+    & > * {
+        margin: 0.5rem 0;
+    }
 `;
