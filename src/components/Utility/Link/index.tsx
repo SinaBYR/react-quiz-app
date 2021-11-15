@@ -34,8 +34,3 @@ interface CustomLinkProps extends LinkProps {
 export const CustomLink: React.FC<CustomLinkProps> = ({ type, children, ...rest }) => {
     return <LinkStyled kind={type} {...rest}>{children}</LinkStyled>
 }
-
-
-const CustomButton: React.FC<{ bg: 'red' | 'blue'; children: string }> = ({ bg, children}) => {
-    return <button style={{backgroundColor: bg}}>{children}</button>
-}
