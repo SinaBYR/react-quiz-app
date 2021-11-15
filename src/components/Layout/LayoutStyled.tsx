@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const LayoutStyled = styled.div`
+    display: flex;
+    flex-direction: column;
     height: 100%;
     min-height: 100vh;
     background-color: #FFB830;
@@ -21,7 +23,9 @@ export const LayoutStyled = styled.div`
     color: #142f43;
     color: #8a0b46;
     color: #544179;
-    
-`
 
-// 041b2a
+    /* last-child is Footer to keep it all the way down */
+    &:last-child {
+        justify-content: flex-end;
+    }
+`
