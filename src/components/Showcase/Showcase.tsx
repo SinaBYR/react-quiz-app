@@ -1,5 +1,5 @@
-import { ShowcaseStyled } from "./ShowcaseStyled";
-import { CustomLink } from "../Utility";
+import { ShowcaseStyled } from "./ShowcaseStyled"
+import { CustomLink } from "../Utility"
 
 export const Showcase = () => {
     return (

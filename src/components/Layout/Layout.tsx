@@ -1,33 +1,17 @@
 import { LayoutStyled } from "./LayoutStyled"
 import { Showcase } from "../Showcase/Showcase"
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Footer } from "../Footer/Footer";
-import { CSSTransition } from "react-transition-group";
+import { Quiz } from "../Quiz/Quiz";
 
 const Layout: () => JSX.Element = () => {
     return (
         <LayoutStyled>
-                {/* <Route path="/" component={Showcase}/> */}
-                {/* <Route path="/start" /> */}
-                <Route exact path="/">
-                    {({ match }) => (
-                        <CSSTransition
-                            in={match !== null}
-                            timeout={300}
-                            classNames="page"
-                            unmountOnExit
-                        >
-                            <Showcase />
-                        </CSSTransition>
-                    )}
-                </Route>
-                <Route path="/start">
-                    {({ match }) => (
-                        <CSSTransition in={match !== null} timeout={300} classNames="page" unmountOnExit>
-                            <Showcase />
-                        </CSSTransition>
-                    )}
-                </Route>
+            <Switch>
+                <Route path="/start" component={Quiz}/>
+                <Route path="/" component={Showcase}/>
+                <Redirect to="/start"/>
+            </Switch>
             <Footer />
         </LayoutStyled>
     )
