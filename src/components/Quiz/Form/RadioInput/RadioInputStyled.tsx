@@ -12,8 +12,11 @@ export const InputFillStyled = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: ${({theme}) => theme.colors.alt}; */
-    border: ${({theme}) => theme.colors.alt + ' 2px solid'};
+    background-color: ${({theme}) => theme.colors.alt};
+    background-color: #F5C6A5;
+    background-color: #ffa742;
+    background-color: #2f4858;
+    /* border: ${({theme}) => theme.colors.primary + ' 2px solid'}; */
     border-radius: 4px;
     z-index: 0;
 `
@@ -23,11 +26,13 @@ export const InputLabel = styled.label`
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: 1.5rem;
     transform: translate(-50%, -50%);
+    width: 100%;
     color: white;
+    font-size: 1.5rem;
     z-index: 3;
     pointer-events: none;
+
 `
 
 export const InputStyled = styled.input`
