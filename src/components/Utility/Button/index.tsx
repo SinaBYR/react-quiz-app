@@ -1,12 +1,13 @@
+import { HTMLAttributes, ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 
 type Kind ='primary' | 'secondary' | 'warning' | 'success'; 
 
 const ButtonStyled = styled.button<{ kind: Kind}>`
-    background-color: ${({ kind }) => {
+    background-color: ${({ kind, theme }) => {
         switch(kind) {
             case 'primary': return '#eeeeee'
-            case 'secondary': return '#544179'
+            case 'secondary': return '#435560'
             case 'success': return '#146310'
             case 'warning': return '#FF2442'
         }
@@ -30,8 +31,13 @@ const ButtonStyled = styled.button<{ kind: Kind}>`
     }
 `
 
-export const Button: React.FC<{ type: Kind, children: string }> = ({ type, children}) => {
-    return <ButtonStyled kind={type}>{children}</ButtonStyled>
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+    type: Kind;
+    children: ReactNode;
+}
+
+export const Button = ({ type, children, ...rest}: ButtonProps) => {
+    return <ButtonStyled kind={type} {...rest}>{children}</ButtonStyled>
 }
 
 // return '#8a0b46'

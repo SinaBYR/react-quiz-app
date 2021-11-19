@@ -9,7 +9,7 @@ const LinkStyled = styled(Link)<{kind: Kind}>`
     background-color: ${({kind, theme}) => {
         switch(kind) {
             case 'primary': return '#eeeeee'
-            case 'secondary': return theme.colors.primary
+            case 'secondary': return '#435560'
             case 'success': return '#146310'
             case 'warning': return '#FF2442'
         }

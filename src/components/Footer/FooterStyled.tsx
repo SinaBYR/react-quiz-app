@@ -6,7 +6,7 @@ export const FooterStyled = styled.footer`
     justify-content: center;
     width: 100%;
     height: 60px;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.secondary};
     text-align: center;
 
     & span {

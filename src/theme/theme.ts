@@ -8,8 +8,8 @@ export interface Theme {
 
 export const theme: Theme = {
     colors: {
-        primary: '#435560',
-        secondary: '#F6EABE',
+        primary: '#F6EABE',
+        secondary: '#435560',
         teritary: '#F7F6F2',
     }
 }

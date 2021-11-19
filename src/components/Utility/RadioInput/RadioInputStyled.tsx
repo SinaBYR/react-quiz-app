@@ -13,9 +13,6 @@ export const InputFillStyled = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: ${({theme}) => theme.colors.alt};
-    background-color: #F5C6A5;
-    background-color: #ffa742;
     background-color: #2f4858;
     /* border: ${({theme}) => theme.colors.primary + ' 2px solid'}; */
     border-radius: 4px;
