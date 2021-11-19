@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 export const InputWrapperStyled = styled.div`
     position: relative;
-    width: 300px;
-    height: 80px;
+    width: 250px;
+    height: 40px;
+    text-align: center;
 `
 
 export const InputFillStyled = styled.div`
@@ -29,7 +30,7 @@ export const InputLabel = styled.label`
     transform: translate(-50%, -50%);
     width: 100%;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     z-index: 3;
     pointer-events: none;
 
