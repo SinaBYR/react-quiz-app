@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { HTMLElementAttributes } from "../../../../types/types";
 
-const CategoryWrapperStyled = styled.div`
+const SectionWrapperStyled = styled.div`
     display: flex;
     justify-content: space-evenly;
     /* background-color: red; */
@@ -16,6 +16,6 @@ const CategoryWrapperStyled = styled.div`
     }
 `
 
-export const CategoryWrapper: ({ children, ...rest }: HTMLElementAttributes) => React.ReactElement = ({ children, ...rest }) => {
-    return <CategoryWrapperStyled {...rest}>{children}</CategoryWrapperStyled>
+export const SectionWrapper: ({ children, ...rest }: HTMLElementAttributes) => React.ReactElement = ({ children, ...rest }) => {
+    return <SectionWrapperStyled {...rest}>{children}</SectionWrapperStyled>
 }
