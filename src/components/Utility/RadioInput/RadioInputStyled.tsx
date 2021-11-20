@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const InputWrapperStyled = styled.div`
     position: relative;
-    width: 250px;
+    /* min-width: 50px; */
+    padding: 1rem;
+    width: 100%;
     height: 40px;
     text-align: center;
 `

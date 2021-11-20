@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { HTMLElementAttributes } from "../../../../types/types";
+import { HTMLElementAttributes } from "../../../../../../types/types";
 
 const SectionWrapperStyled = styled.div`
     width: 100%;
