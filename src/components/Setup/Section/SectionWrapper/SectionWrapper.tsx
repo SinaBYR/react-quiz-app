@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { HTMLElementAttributes } from "../../../../types/types";
 
 const SectionWrapperStyled = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     /* background-color: red; */
@@ -13,6 +14,17 @@ const SectionWrapperStyled = styled.div`
 
     & > *:last-child {
         margin-right: 0;
+    }
+
+    @media(max-width: 479px) {
+        & {
+            flex-direction: column;
+        }
+
+        & > * {
+            margin-right: 0rem;
+            margin-bottom: 0.5rem;
+        }
     }
 `
 
