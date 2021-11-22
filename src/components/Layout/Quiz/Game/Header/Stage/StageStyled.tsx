@@ -18,7 +18,7 @@ export const StageCurrent = styled.div`
     top: 0;
     left: 0;
     width: 50%;
-    color: ${({ theme }) => theme.colors.primary};
+    /* color: ${({ theme }) => theme.colors.primary}; */
 `
 
 export const StageTotal = styled.div`
