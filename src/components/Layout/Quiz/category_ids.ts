@@ -4,6 +4,6 @@ export const CATEGORY_IDS = {
     general: '9',
     movies: '11',
     music: '12',
-    videoGames: '15',
+    'video-games': '15',
     sports: '21'
 }
