@@ -3,7 +3,7 @@ export interface HTMLElementAttributes extends React.HTMLAttributes<HTMLDivEleme
 }
 
 export interface FORMDATA {
-    category: 'general' | 'movies' | 'music' | 'sports' | 'videoGames';
+    category: 'general' | 'movies' | 'music' | 'sports' | 'video-games';
     // noq = number of questions
     noq: 5|10|15|20;
     time: 0|1|2|5;
