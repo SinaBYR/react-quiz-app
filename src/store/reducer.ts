@@ -1,10 +1,10 @@
-import { Result } from '../types/types'
+import { ApiQuestionObject } from '../types/types'
 import { ACTIONTYPES } from './actions'
 
 export interface InitialStateType {
     count: number;
     page: 'setup' | 'game';
-    data: Result[];
+    data: ApiQuestionObject[];
 }
 
 export const initialState: InitialStateType = {

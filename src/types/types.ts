@@ -11,11 +11,21 @@ export interface FORMDATA {
 }
 
 // Structure of each question result coming from opentdb api
-export interface Result {
+export interface ApiQuestionObject {
     category: string;
     correct_answer: string;
     difficulty: string;
     incorrect_answers: string[];
     question: string;
     type: string;
+}
+
+export type StageQuestionObject = {
+    stage: number;
+    question: string;
+    answer: string|null;
+    isCorrect: boolean|undefined;
+    correctAnswer: string;
+    incorrect_answers: string[];
+    allAnswers: string[]
 }

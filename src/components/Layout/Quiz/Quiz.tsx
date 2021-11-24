@@ -1,14 +1,13 @@
 import { useContext, useState } from "react";
 import { axios } from "../../../axios/axios";
 import { DispatchContext } from "../../../store/context";
-import { FORMDATA, Result } from "../../../types/types";
+import { FORMDATA } from "../../../types/types";
 import { CATEGORY_IDS } from "./category_ids";
 import { Game } from "./Game/Game";
 import { Setup } from "./Setup/Setup";
 
 export const Quiz = () => {
     const [page, setPage] = useState<'setup' | 'game'>('setup');
-    // const [data, setData] = useState<Result[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const dispatch = useContext(DispatchContext)
 
