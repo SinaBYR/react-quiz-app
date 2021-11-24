@@ -10,6 +10,7 @@ import { StateContext } from "../../../../store/context";
 import { InitialStateType } from "../../../../store/reducer";
 import { restructure } from "./customize-game-data";
 import { StageQuestionObject } from "../../../../types/types";
+import { decode } from 'html-entities'
 
 
 
@@ -43,8 +44,15 @@ export const Game: () => ReactElement = () => {
     
     let displayedRadioInputs;
     displayedRadioInputs = currentQuestion?.allAnswers.map(question => (
-        <RadioInput type="radio" name="answer" disabled={currentQuestion.isCorrect} value={question} onChange={onChangeHandler} key={question}>{question}</RadioInput>
+        <RadioInput type="radio" name="answer" disabled={currentQuestion.isCorrect} value={question} onChange={onChangeHandler} key={question}>{decode(question)}</RadioInput>
     ))
+
+    function unicodeEscape(str: string) {
+        for (var result = '', index = 0, charCode; !isNaN(charCode = str.charCodeAt(index++));) {
+          result += '\\u' + ('0000' + charCode.toString(16)).slice(-4);
+        }
+        return result;
+    }
 
     return (
         <GameStyled>
