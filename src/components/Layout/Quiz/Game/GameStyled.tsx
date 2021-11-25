@@ -5,7 +5,9 @@ export const GameStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
     max-width: 860px;
+    min-height: 480px;
     background-color: #F7F6F2;
     padding: 2rem 0;
     margin: 0 auto;
