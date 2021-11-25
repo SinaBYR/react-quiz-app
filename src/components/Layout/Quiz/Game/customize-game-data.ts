@@ -35,7 +35,7 @@ export const restructure = (questions: ApiQuestionObject[]) => {
             stage: i,
             question: res.question,
             answer: null,
-            isCorrect: undefined,
+            isCorrect: null,
             correctAnswer: res.correct_answer,
             incorrect_answers: res.incorrect_answers,
             allAnswers: shuffledAllAnswers
