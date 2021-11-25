@@ -1,7 +1,3 @@
-export interface HTMLElementAttributes extends React.HTMLAttributes<HTMLDivElement> {
-    children: React.ReactElement | React.ReactElement[]
-}
-
 export interface FORMDATA {
     category: 'general' | 'movies' | 'music' | 'sports' | 'video-games';
     // noq = number of questions
@@ -20,11 +16,11 @@ export interface ApiQuestionObject {
     type: string;
 }
 
-export type StageQuestionObject = {
+export interface StageQuestionObject {
     stage: number;
     question: string;
     answer: string|null;
-    isCorrect: boolean|undefined;
+    isCorrect: boolean|null;
     correctAnswer: string;
     incorrect_answers: string[];
     allAnswers: string[]
