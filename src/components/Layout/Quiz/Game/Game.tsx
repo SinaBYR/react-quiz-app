@@ -43,17 +43,20 @@ export const Game: () => ReactElement = () => {
         }
         
         setQuestions(newQuestions)
-
+        
         if((stage + 1) === (questions.length)) {
             // console.log('Finished: ', questions)
         }
         setTimeout(() => {
             setStage(stage + 1)
-        }, 500)
+        }, 1500)
     }
-    let displayedRadioInputs;
-    displayedRadioInputs = currentQuestion?.allAnswers.map(answer => (
-        <RadioInput type="radio" name="answer" value={answer} onChange={onChangeHandler} key={answer}>{decode(answer)}</RadioInput>
+    
+    // bgColor: determines the background-color of RadioInput with correct answer.
+    // selectedBgColor: determines the background-color of selected RadioInput by user.
+    // For more info, check out Utility/Button/index.tsx file
+    let displayedRadioInputs = currentQuestion?.allAnswers.map(answer => (
+        <RadioInput name="answer" bgColor={currentQuestion.answer && currentQuestion.correctAnswer === answer ? 'green': null} selectedBgColor={currentQuestion.answer && currentQuestion.correctAnswer === answer ? 'green': 'red'} selected={currentQuestion.answer === answer} value={answer} onChange={onChangeHandler} key={answer}>{decode(answer)}</RadioInput>
     ))
 
     return (

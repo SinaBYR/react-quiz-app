@@ -8,14 +8,15 @@ export const InputWrapperStyled = styled.div`
     height: 40px;
     text-align: center;
 `
-
-export const InputFillStyled = styled.div`
+/* Nullish check of bgColor is because we've used RadioInput component not only in Game component */
+/* but also in Setup component.*/
+export const InputFillStyled = styled.div<{ bgColor?: string|null }>`
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #2f4858;
+    background-color: ${({ bgColor }) => bgColor ? bgColor : '#2f4858'};
     /* border: ${({theme}) => theme.colors.primary + ' 2px solid'}; */
     border-radius: 4px;
     z-index: 0;
@@ -35,7 +36,7 @@ export const InputLabel = styled.label`
 
 `
 
-export const InputStyled = styled.input`
+export const InputStyled = styled.input<{ selectedBgColor?: string|null}>`
     position: absolute;
     top: 0;
     left: 0;
@@ -49,6 +50,8 @@ export const InputStyled = styled.input`
     cursor: pointer;
 
     &:checked + ${InputFillStyled} {
-        background-color: green;
+        /* Nullish check of selectedBgColor is because we've used RadioInput component not only in Game component */
+        /* but also in Setup component.*/
+        background-color: ${({ selectedBgColor }) => selectedBgColor ? selectedBgColor : 'green'};
     }
 `
