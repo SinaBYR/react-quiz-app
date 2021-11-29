@@ -7,7 +7,7 @@ export const FormStyled = styled.form`
     align-items: center;
     gap: 1rem;
     width: 100%;
-    padding: 1rem;
+    /* padding: 1rem; */
 
     @media(max-width: 479px) {
         & {

@@ -3,9 +3,8 @@ import styled from "styled-components";
 export const InputWrapperStyled = styled.div`
     position: relative;
     /* min-width: 50px; */
-    padding: 1rem;
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     text-align: center;
 `
 /* Nullish check of bgColor is because we've used RadioInput component not only in Game component */
@@ -17,23 +16,24 @@ export const InputFillStyled = styled.div<{ bgColor?: string|null }>`
     width: 100%;
     height: 100%;
     background-color: ${({ bgColor }) => bgColor ? bgColor : '#2f4858'};
-    /* border: ${({theme}) => theme.colors.primary + ' 2px solid'}; */
     border-radius: 4px;
     z-index: 0;
 `
 
 export const InputLabel = styled.label`
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    height: 100%;
     color: white;
     font-size: 1.1rem;
     z-index: 3;
     pointer-events: none;
-
 `
 
 export const InputStyled = styled.input<{ selectedBgColor?: string|null}>`

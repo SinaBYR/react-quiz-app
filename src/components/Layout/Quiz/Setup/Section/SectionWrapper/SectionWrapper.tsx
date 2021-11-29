@@ -5,10 +5,10 @@ const SectionWrapperStyled = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-    /* background-color: red; */
-    
+    margin-bottom: 1.5rem;
+
     & > * {
-        margin-right: 1rem;
+        margin-right: 0.5rem;
     }
 
     & > *:last-child {
