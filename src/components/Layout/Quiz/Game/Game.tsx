@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, ChangeEvent } from "react";
 import { Form } from "./Form/Form";
 import { RadioInput } from "../../../Utility";
 import { Header } from "./Header/Header";
@@ -11,18 +11,28 @@ import { InitialStateType } from "../../../../store/reducer";
 import { restructure } from "./customize-game-data";
 import { StageQuestionObject } from "../../../../types/types";
 import { decode } from 'html-entities'
+import { Time } from "../Quiz";
+import { remainingTime } from "./remaining-time";
+import { useInterval } from "../../../../hooks/useInterval";
 
-export const Game: () => ReactElement = () => {
-    const { data } = useContext(StateContext) || {} as InitialStateType
+export const Game = () => {
+    const { result, formData } = useContext(StateContext) || {} as InitialStateType
     const [stage, setStage] = useState<number>(0)
     const [questions, setQuestions] = useState<StageQuestionObject[]>([])
-    const [currentQuestion, setCurrentQuestion] = useState<StageQuestionObject|null>(null) 
+    const [currentQuestion, setCurrentQuestion] = useState<StageQuestionObject|null>(null)
+    const [isPlaying, setIsPlaying] = useState<boolean>(true)
+    const [gameTime, setGameTime] = useState<number|null>(null)
 
     useEffect(() => {
-        if(!data.length) {return}
-        setQuestions(restructure(data))
+        if(!result.length) {return}
+        setQuestions(restructure(result))
+        if(formData?.time === '0') {
+            return setGameTime(null)
+        }
+
+        setGameTime(Number(formData?.time))
         // console.log('restructure useEffect ran!')
-    }, [data])
+    }, [result])
     
     useEffect(() => {
         // Filter out current stage question based on stage state value.
@@ -30,6 +40,25 @@ export const Game: () => ReactElement = () => {
         setCurrentQuestion(curr)
         // console.log('setting current question useEffect ran!')
     }, [questions, stage])
+
+    useEffect(() => {
+        // return if gameTime is still not set by first useEffect
+        if(gameTime === null) {return}
+        let interval = setInterval(() => {
+            setGameTime(gameTime - 1)
+        }, 1000)
+        if(gameTime < 0) {
+            clearInterval(interval);
+            return setIsPlaying(false)
+        }
+        
+        return () => {
+            clearInterval(interval)
+        }
+    })
+    // if(gameTime) {
+    //     console.log(remainingTime(gameTime))
+    // }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value
@@ -44,11 +73,12 @@ export const Game: () => ReactElement = () => {
         
         setQuestions(newQuestions)
         
-        if((stage + 1) === (questions.length)) {
-            // console.log('Finished: ', questions)
-        }
         setTimeout(() => {
             setStage(stage + 1)
+            if((stage + 1) === (questions.length)) {
+                setIsPlaying(false)
+                console.log('Finished: ', questions)
+            }
         }, 1500)
     }
     
@@ -61,31 +91,48 @@ export const Game: () => ReactElement = () => {
 
     return (
         <GameStyled>
-            <Header>
-                {currentQuestion ? <Stage current={currentQuestion.stage + 1} total={questions.length}/>: null}
-                <Timer>
-                    <h2>2 : 00</h2>
-                    <p style={{letterSpacing: '4px'}}>remaining</p>
-                </Timer>
-            </Header>
-            {currentQuestion ? <Question>{decode(currentQuestion.question)}</Question> : null}
-            <Form>
-                {displayedRadioInputs}
-            </Form>
-            {/* <div>
+            {isPlaying ?
+            <>
+                <Header>
+                    {currentQuestion ? <Stage current={currentQuestion.stage + 1} total={questions.length}/>: null}
+                    {
+                    <Timer>
+                        <h2>{gameTime ? remainingTime(gameTime) : '-- : --'}</h2>
+                    </Timer>
+                    }
+                    <p>{result[0].difficulty}</p>
+                </Header>
+                {currentQuestion ? <Question>{decode(currentQuestion.question)}</Question> : null}
+                <Form>
+                    {displayedRadioInputs}
+                </Form>
+            </>
+            :
+            <div>
                 {questions.map(({answer, question}) => {
                     return (
-                        <div style={{padding: '1rem'}} key={question}>{answer}</div>
+                        <div style={{padding: '1rem', color: 'black'}} key={question}>{answer}</div>
                     )
                 })}
-            </div> */}
-            {/* <button onClick={() => {
-                setStage(stage + 1)
-            }}>Next</button>
-            <button onClick={() => {
-                // console.log('api data: ', data)
-                console.log('questions: ', questions)
-            }}>Show</button> */}
+            </div>
+            }
+
+
         </GameStyled>
     )
 }
+
+{/* <div>
+{questions.map(({answer, question}) => {
+    return (
+        <div style={{padding: '1rem'}} key={question}>{answer}</div>
+    )
+})}
+</div>
+<button onClick={() => {
+setStage(stage + 1)
+}}>Next</button>
+<button onClick={() => {
+// console.log('api result: ', result)
+console.log('questions: ', questions)
+}}>Show</button> */}
