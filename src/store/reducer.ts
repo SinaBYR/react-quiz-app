@@ -1,16 +1,16 @@
-import { ApiQuestionObject } from '../types/types'
+import { ApiQuestionObject, FORMDATA } from '../types/types'
 import { ACTIONTYPES } from './actions'
 
 export interface InitialStateType {
-    count: number;
-    page: 'setup' | 'game';
-    data: ApiQuestionObject[];
+    result: ApiQuestionObject[];
+    formData: FORMDATA|null;
+    isGameFinished: boolean
 }
 
 export const initialState: InitialStateType = {
-    count: 0,
-    page: 'setup',
-    data: []
+    result: [],
+    formData: null,
+    isGameFinished: false
 }
 
 export function reducer(state = initialState, action: ACTIONTYPES): InitialStateType {
@@ -18,7 +18,15 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
         case 'store_data': {
             return {
                 ...state,
-                data: action.payload
+                result: action.payload.result,
+                formData: action.payload.formData
+            }
+        }
+
+        case 'GAME_FINISHED': {
+            return {
+                ...state,
+                isGameFinished: true
             }
         }
         default: {
