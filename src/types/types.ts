@@ -2,8 +2,8 @@ export interface FORMDATA {
     category: 'general' | 'movies' | 'music' | 'sports' | 'video-games';
     // noq = number of questions
     noq: '5'|'10'|'15'|'20';
-    time: '0'|'1'|'2'|'5';
-    difficulty: 'easy' | 'medium' | 'hard'
+    time: '0'|'60'|'120'|'300';
+    level: 'easy' | 'medium' | 'hard'
 }
 
 // Structure of each question result coming from opentdb api

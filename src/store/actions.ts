@@ -1,6 +1,10 @@
-import { ApiQuestionObject } from "../types/types";
+import { ApiQuestionObject, FORMDATA } from "../types/types";
+
+interface STORE_DATA {
+    result: ApiQuestionObject[];
+    formData: FORMDATA|null;
+}
 
 export type ACTIONTYPES =
-| { type: "store_data"; payload: ApiQuestionObject[] }
-| { type: "increment"; payload: number }
-| { type: "decrement"; payload: number };
+| { type: "store_data"; payload: STORE_DATA }
+| { type: "GAME_FINISHED"}
