@@ -1,17 +1,20 @@
+import { useState } from "react";
 import { LayoutStyled } from "./LayoutStyled"
 import { Showcase } from "./Showcase/Showcase"
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Footer } from "./Footer/Footer";
 import { Quiz } from "./Quiz/Quiz";
 
-const Layout: () => JSX.Element = () => {
+const Layout = () => {
+    const [page, setPage] = useState<'showcase'|'quiz'>('showcase')
+
+    const onClickHandler = () => {
+        setPage('quiz')
+    }
+
     return (
         <LayoutStyled>
-            <Switch>
-                <Route path="/quiz" component={Quiz}/>
-                <Route path="/" component={Showcase}/>
-                <Redirect to="/quiz"/>
-            </Switch>
+            {page === 'showcase' ? <Showcase clicked={onClickHandler}/> : <Quiz />}
             <Footer />
         </LayoutStyled>
     )

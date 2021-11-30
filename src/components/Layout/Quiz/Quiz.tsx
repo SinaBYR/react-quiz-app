@@ -1,15 +1,19 @@
 import { useContext, useState } from "react";
 import { axios } from "../../../axios/axios";
-import { DispatchContext } from "../../../store/context";
+import { DispatchContext, StateContext } from "../../../store/context";
+import { InitialStateType } from "../../../store/reducer";
 import { FORMDATA } from "../../../types/types";
 import { CATEGORY_IDS } from "./category_ids";
 import { Game } from "./Game/Game";
 import { Setup } from "./Setup/Setup";
 
+export type Time = '0'|'60'|'120'|'300'
+
 export const Quiz = () => {
-    const [page, setPage] = useState<'setup' | 'game'>('setup');
-    const [loading, setLoading] = useState<boolean>(false)
+    const { isGameFinished } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
+    const [page, setPage] = useState<'setup' | 'game'>('setup')
+    const [loading, setLoading] = useState<boolean>(false)
 
     const changePageHandler = () => {
         if(page === 'setup') {
@@ -21,20 +25,20 @@ export const Quiz = () => {
 
     const startGame = async (config: FORMDATA) => {
         setLoading(true)
-        console.log(config)
         try {
-            const url = `?amount=${config.noq}&category=${CATEGORY_IDS[config.category]}&difficulty=${config.difficulty}&type=multiple`
+            const url = `?amount=${config.noq}&category=${CATEGORY_IDS[config.category]}&difficulty=${config.level}&type=multiple`
             const response = await axios.get(url)
             const resdata = await response.data
 
             if(!resdata.results.length) {
-                return
+                return console.log('Result array is empty.')
             }
 
-            // setData(resdata.results)
-            // console.log(url)
-            dispatch({ type: 'store_data', payload: resdata.results})
-            // console.log(resdata)
+            const payload = {
+                result: resdata.results,
+                formData: config
+            }
+            dispatch({ type: 'store_data', payload})
             changePageHandler()
             setLoading(false)
         } catch(err) {
@@ -42,6 +46,7 @@ export const Quiz = () => {
             setLoading(false)
         }
     }
+    console.log(isGameFinished)
 
-    return page === 'setup' ? <Setup start={startGame} loading={loading}/> : <Game />
+    return page === 'setup' ? <Setup start={startGame} loading={loading}/> : (isGameFinished ? <p>FINISHED</p> : <Game />)
 }

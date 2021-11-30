@@ -4,27 +4,23 @@ import { RadioInput } from "../../../Utility";
 import { Header } from "./Header/Header";
 import { Question } from "./Question/Question";
 import { GameStyled } from "./GameStyled";
-import { Stage } from "./Header/Stage/Stage";
-import { Timer } from "./Header/Timer/Timer";
-import { StateContext } from "../../../../store/context";
+import { DispatchContext, StateContext } from "../../../../store/context";
 import { InitialStateType } from "../../../../store/reducer";
 import { restructure } from "./customize-game-data";
 import { StageQuestionObject } from "../../../../types/types";
 import { decode } from 'html-entities'
-import { Time } from "../Quiz";
-import { remainingTime } from "./remaining-time";
-import { useInterval } from "../../../../hooks/useInterval";
 
 export const Game = () => {
-    const { result, formData } = useContext(StateContext) || {} as InitialStateType
+    const { result, formData } = useContext(StateContext) as InitialStateType
+    const dispatch = useContext(DispatchContext)
     const [stage, setStage] = useState<number>(0)
     const [questions, setQuestions] = useState<StageQuestionObject[]>([])
     const [currentQuestion, setCurrentQuestion] = useState<StageQuestionObject|null>(null)
-    const [isPlaying, setIsPlaying] = useState<boolean>(true)
     const [gameTime, setGameTime] = useState<number|null>(null)
 
     useEffect(() => {
         if(!result.length) {return}
+        // save array of restructured questions
         setQuestions(restructure(result))
         if(formData?.time === '0') {
             return setGameTime(null)
@@ -49,7 +45,7 @@ export const Game = () => {
         }, 1000)
         if(gameTime < 0) {
             clearInterval(interval);
-            return setIsPlaying(false)
+            return dispatch({ type: 'GAME_FINISHED'})
         }
         
         return () => {
@@ -76,10 +72,10 @@ export const Game = () => {
         setTimeout(() => {
             setStage(stage + 1)
             if((stage + 1) === (questions.length)) {
-                setIsPlaying(false)
+                dispatch({ type: 'GAME_FINISHED'})
                 console.log('Finished: ', questions)
             }
-        }, 1500)
+        }, 1000)
     }
     
     // bgColor: determines the background-color of RadioInput with correct answer.
@@ -91,33 +87,11 @@ export const Game = () => {
 
     return (
         <GameStyled>
-            {isPlaying ?
-            <>
-                <Header>
-                    {currentQuestion ? <Stage current={currentQuestion.stage + 1} total={questions.length}/>: null}
-                    {
-                    <Timer>
-                        <h2>{gameTime ? remainingTime(gameTime) : '-- : --'}</h2>
-                    </Timer>
-                    }
-                    <p>{result[0].difficulty}</p>
-                </Header>
-                {currentQuestion ? <Question>{decode(currentQuestion.question)}</Question> : null}
-                <Form>
-                    {displayedRadioInputs}
-                </Form>
-            </>
-            :
-            <div>
-                {questions.map(({answer, question}) => {
-                    return (
-                        <div style={{padding: '1rem', color: 'black'}} key={question}>{answer}</div>
-                    )
-                })}
-            </div>
-            }
-
-
+            <Header formData={formData} questions={questions} currentQuestion={currentQuestion} gameTime={gameTime} />
+            <Question text={decode(currentQuestion?.question)}/>
+            <Form>
+                {displayedRadioInputs}
+            </Form>
         </GameStyled>
     )
 }
