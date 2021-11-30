@@ -1,13 +1,9 @@
-import { createContext, Dispatch, ReactElement, useReducer } from "react";
+import { ReactElement, useReducer } from "react";
 import { Layout } from "./components/Layout/Layout"
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme";
-import { initialState, InitialStateType, reducer } from "./store/reducer";
-import { ACTIONTYPE } from "./store/actions";
-
-// dispatch and state contexts
-const DispatchContext = createContext<Dispatch<ACTIONTYPE> | null>(null)
-const StateContext = createContext<InitialStateType | null>(null)
+import { initialState, reducer } from "./store/reducer";
+import { DispatchContext, StateContext } from "./store/context";
 
 const App: () => ReactElement = () => {
     const [state, dispatch] = useReducer(reducer, initialState)
