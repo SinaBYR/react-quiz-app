@@ -10,7 +10,7 @@ const SetupStyled = styled.div`
     width: 100%;
     max-width: 860px;
     background-color: #F7F6F2;
-    padding: 1rem;
+    padding: 3rem;
     margin: 0 auto;
     box-shadow: 0 0 8px #D0CAB2;
 
@@ -23,8 +23,8 @@ export const Setup = ({ start, loading }: { start: (config: FORMDATA) =>  void; 
     const [formData, setFormData] = useState<FORMDATA>({
         category: 'general',
         noq: '10',
-        time: '2',
-        difficulty: 'medium'
+        time: '60',
+        level: 'medium'
     })
 
     const onChangeHandler = (e: ChangeEvent) => {
@@ -32,48 +32,50 @@ export const Setup = ({ start, loading }: { start: (config: FORMDATA) =>  void; 
             ...formData,
             [e.target.getAttribute('name')!]: e.target.getAttribute('value')
         })
-        console.log(formData.time)
+        // console.log(formData.time)
     }
 
     return (
         <SetupStyled>
             <h1 style={{textAlign: 'center'}}>Quiz Setup</h1>
-            <Section>
-                <h2>Category</h2>
-                <SectionWrapper>
-                    <RadioInput type="radio" value="general" checked={formData.category === 'general'} name="category" onChange={onChangeHandler}>General</RadioInput>
-                    <RadioInput type="radio" value="movies" checked={formData.category === 'movies'} name="category" onChange={onChangeHandler}>Movies</RadioInput>
-                    <RadioInput type="radio" value="music" checked={formData.category === 'music'} name="category" onChange={onChangeHandler}>Music</RadioInput>
-                    <RadioInput type="radio" value="sports" checked={formData.category === 'sports'} name="category" onChange={onChangeHandler}>Sports</RadioInput>
-                    <RadioInput type="radio" value="video-games" checked={formData.category === 'video-games'} name="category" onChange={onChangeHandler}>Video Games</RadioInput>
-                </SectionWrapper>
-            </Section>
-            <Section>
-                <h2>Number of questions</h2>
-                <SectionWrapper>
-                    <RadioInput type="radio" name="noq" value="5" checked={formData.noq === '5'} onChange={onChangeHandler}>5</RadioInput>
-                    <RadioInput type="radio" name="noq" value="10" checked={formData.noq === '10'} onChange={onChangeHandler}>10</RadioInput>
-                    <RadioInput type="radio" name="noq" value="15" checked={formData.noq === '15'} onChange={onChangeHandler}>15</RadioInput>
-                    <RadioInput type="radio" name="noq" value="20" checked={formData.noq === '20'} onChange={onChangeHandler}>20</RadioInput>
-                </SectionWrapper>
-            </Section>
-            <Section>
-                <h2>Difficulty</h2>
-                <SectionWrapper>
-                    <RadioInput type="radio" name="difficulty" value="easy" checked={formData.difficulty === 'easy'} onChange={onChangeHandler}>Easy</RadioInput>
-                    <RadioInput type="radio" name="difficulty" value="medium" checked={formData.difficulty === 'medium'} onChange={onChangeHandler}>Medium</RadioInput>
-                    <RadioInput type="radio" name="difficulty" value="hard" checked={formData.difficulty === 'hard'} onChange={onChangeHandler}>Hard</RadioInput>
-                </SectionWrapper>
-            </Section>
-            <Section>
-                <h2>Time</h2>
-                <SectionWrapper>
-                    <RadioInput type="radio" name="time" value="0" checked={formData.time === '0'} onChange={onChangeHandler}>No time</RadioInput>
-                    <RadioInput type="radio" name="time" value="1" checked={formData.time === '1'} onChange={onChangeHandler}>1 min</RadioInput>
-                    <RadioInput type="radio" name="time" value="2" checked={formData.time === '2'} onChange={onChangeHandler}>2 min</RadioInput>
-                    <RadioInput type="radio" name="time" value="5" checked={formData.time === '5'} onChange={onChangeHandler}>5 min</RadioInput>
-                </SectionWrapper>
-            </Section>
+            <form>
+                <Section>
+                    <h2>Category</h2>
+                    <SectionWrapper>
+                        <RadioInput value="general" checked={formData.category === 'general'} name="category" onChange={onChangeHandler}>General</RadioInput>
+                        <RadioInput value="movies" checked={formData.category === 'movies'} name="category" onChange={onChangeHandler}>Movies</RadioInput>
+                        <RadioInput value="music" checked={formData.category === 'music'} name="category" onChange={onChangeHandler}>Music</RadioInput>
+                        <RadioInput value="sports" checked={formData.category === 'sports'} name="category" onChange={onChangeHandler}>Sports</RadioInput>
+                        <RadioInput value="video-games" checked={formData.category === 'video-games'} name="category" onChange={onChangeHandler}>Video Games</RadioInput>
+                    </SectionWrapper>
+                </Section>
+                <Section>
+                    <h2>Number of questions</h2>
+                    <SectionWrapper>
+                        <RadioInput name="noq" value="5" checked={formData.noq === '5'} onChange={onChangeHandler}>5</RadioInput>
+                        <RadioInput name="noq" value="10" checked={formData.noq === '10'} onChange={onChangeHandler}>10</RadioInput>
+                        <RadioInput name="noq" value="15" checked={formData.noq === '15'} onChange={onChangeHandler}>15</RadioInput>
+                        <RadioInput name="noq" value="20" checked={formData.noq === '20'} onChange={onChangeHandler}>20</RadioInput>
+                    </SectionWrapper>
+                </Section>
+                <Section>
+                    <h2>Level</h2>
+                    <SectionWrapper>
+                        <RadioInput name="level" value="easy" checked={formData.level === 'easy'} onChange={onChangeHandler}>Easy</RadioInput>
+                        <RadioInput name="level" value="medium" checked={formData.level === 'medium'} onChange={onChangeHandler}>Medium</RadioInput>
+                        <RadioInput name="level" value="hard" checked={formData.level === 'hard'} onChange={onChangeHandler}>Hard</RadioInput>
+                    </SectionWrapper>
+                </Section>
+                <Section>
+                    <h2>Time</h2>
+                    <SectionWrapper>
+                        <RadioInput name="time" value="0" checked={formData.time === '0'} onChange={onChangeHandler}>No time</RadioInput>
+                        <RadioInput name="time" value="60" checked={formData.time === '60'} onChange={onChangeHandler}>1 min</RadioInput>
+                        <RadioInput name="time" value="120" checked={formData.time === '120'} onChange={onChangeHandler}>2 min</RadioInput>
+                        <RadioInput name="time" value="300" checked={formData.time === '300'} onChange={onChangeHandler}>5 min</RadioInput>
+                    </SectionWrapper>
+                </Section>
+            </form>
             <Button style={{margin: '0 auto'}} type="secondary" onClick={() => start(formData)}>
                 {
                     loading ? <BeatLoader /> : 'Start Now'
