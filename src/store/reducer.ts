@@ -1,25 +1,42 @@
-import { ApiQuestionObject, FORMDATA } from '../types/types'
+import { ApiQuestionObject, FORMDATA, StageQuestionObject } from '../types/types'
 import { ACTIONTYPES } from './actions'
 
 export interface InitialStateType {
-    result: ApiQuestionObject[];
+    // apiData: the data coming from Open Travia Database api.
+    apiData: ApiQuestionObject[];
     formData: FORMDATA|null;
     currentState: 'pre-game'|'in-game'|'after-game'
+    questions: StageQuestionObject[]
 }
 
 export const initialState: InitialStateType = {
-    result: [],
+    apiData: [],
     formData: null,
-    currentState: 'pre-game'
+    currentState: 'pre-game',
+    questions: []
 }
 
 export function reducer(state = initialState, action: ACTIONTYPES): InitialStateType {
     switch (action.type) {
-        case 'store_data': {
+        case 'STORE_API_DATA': {
             return {
                 ...state,
-                result: action.payload.result,
+                apiData: action.payload.apiData,
                 formData: action.payload.formData
+            }
+        }
+
+        case 'STORE_RESTRUCTURED_DATA': {
+            return {
+                ...state,
+                questions: action.payload
+            }
+        }
+
+        case 'UPDATE_CURRENT_QUESTION': {
+            return {
+                ...state,
+                questions: action.payload
             }
         }
 
