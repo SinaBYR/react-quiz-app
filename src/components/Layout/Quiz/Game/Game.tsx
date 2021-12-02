@@ -45,7 +45,7 @@ export const Game = () => {
         }, 1000)
         if(gameTime < 0) {
             clearInterval(interval);
-            return dispatch({ type: 'GAME_FINISHED'})
+            return dispatch({ type: 'FINISH_GAME'})
         }
         
         return () => {
@@ -72,7 +72,7 @@ export const Game = () => {
         setTimeout(() => {
             setStage(stage + 1)
             if((stage + 1) === (questions.length)) {
-                dispatch({ type: 'GAME_FINISHED'})
+                dispatch({ type: 'FINISH_GAME'})
                 console.log('Finished: ', questions)
             }
         }, 1000)

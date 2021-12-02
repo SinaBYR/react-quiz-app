@@ -7,10 +7,8 @@ import { CATEGORY_IDS } from "./category_ids";
 import { Game } from "./Game/Game";
 import { Setup } from "./Setup/Setup";
 
-export type Time = '0'|'60'|'120'|'300'
-
 export const Quiz = () => {
-    const { isGameFinished } = useContext(StateContext) as InitialStateType
+    const { currentState } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
     const [page, setPage] = useState<'setup' | 'game'>('setup')
     const [loading, setLoading] = useState<boolean>(false)
@@ -39,14 +37,21 @@ export const Quiz = () => {
                 formData: config
             }
             dispatch({ type: 'store_data', payload})
-            changePageHandler()
+            dispatch({ type: 'START_GAME' })
+            // changePageHandler()
             setLoading(false)
         } catch(err) {
             console.log(err)
             setLoading(false)
         }
     }
-    console.log(isGameFinished)
 
-    return page === 'setup' ? <Setup start={startGame} loading={loading}/> : (isGameFinished ? <p>FINISHED</p> : <Game />)
+    let displayComponent = <Setup start={startGame} loading={loading}/>
+    if(currentState === 'in-game') {
+        displayComponent = <Game />
+    } else if(currentState === 'after-game') {
+        displayComponent = <p>FINISHED</p>
+    }
+
+    return displayComponent
 }

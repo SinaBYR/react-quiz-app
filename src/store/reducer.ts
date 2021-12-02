@@ -4,13 +4,13 @@ import { ACTIONTYPES } from './actions'
 export interface InitialStateType {
     result: ApiQuestionObject[];
     formData: FORMDATA|null;
-    isGameFinished: boolean
+    currentState: 'pre-game'|'in-game'|'after-game'
 }
 
 export const initialState: InitialStateType = {
     result: [],
     formData: null,
-    isGameFinished: false
+    currentState: 'pre-game'
 }
 
 export function reducer(state = initialState, action: ACTIONTYPES): InitialStateType {
@@ -23,12 +23,20 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
             }
         }
 
-        case 'GAME_FINISHED': {
+        case 'START_GAME': {
             return {
                 ...state,
-                isGameFinished: true
+                currentState: 'in-game'
             }
         }
+
+        case 'FINISH_GAME': {
+            return {
+                ...state,
+                currentState: 'after-game'
+            }
+        }
+
         default: {
             return state
         }

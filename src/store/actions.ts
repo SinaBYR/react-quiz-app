@@ -7,4 +7,5 @@ interface STORE_DATA {
 
 export type ACTIONTYPES =
 | { type: "store_data"; payload: STORE_DATA }
-| { type: "GAME_FINISHED"}
+| { type: "START_GAME"}
+| { type: "FINISH_GAME"}
