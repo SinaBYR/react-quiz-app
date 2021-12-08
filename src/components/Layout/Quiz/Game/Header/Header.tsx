@@ -12,17 +12,16 @@ export const HeaderStyled = styled.header`
 `
 
 interface HeaderProps {
-    gameTime: number|null;
     questions: StageQuestionObject[];
     currentQuestion: StageQuestionObject|null;
     formData: FORMDATA|null
 }
 
-export const Header= ({ formData, gameTime, questions, currentQuestion }: HeaderProps) => {
+export const Header= ({ formData, questions, currentQuestion }: HeaderProps) => {
     return (
         <HeaderStyled>
             <TopHeader category={formData?.category} level={formData?.level} />
-            <BottomHeader questions={questions} currentQuestion={currentQuestion} gameTime={gameTime}/>
+            <BottomHeader questions={questions} currentQuestion={currentQuestion} />
         </HeaderStyled>
     )
 }

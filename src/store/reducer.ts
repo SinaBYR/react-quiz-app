@@ -5,15 +5,17 @@ export interface InitialStateType {
     // apiData: the data coming from Open Travia Database api.
     apiData: ApiQuestionObject[];
     formData: FORMDATA|null;
-    currentState: 'pre-game'|'in-game'|'after-game'
-    questions: StageQuestionObject[]
+    currentState: 'pre-game'|'in-game'|'after-game';
+    questions: StageQuestionObject[];
+    remainingGameTime: number|null
 }
 
 export const initialState: InitialStateType = {
     apiData: [],
     formData: null,
     currentState: 'pre-game',
-    questions: []
+    questions: [],
+    remainingGameTime: null
 }
 
 export function reducer(state = initialState, action: ACTIONTYPES): InitialStateType {
@@ -37,6 +39,13 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
             return {
                 ...state,
                 questions: action.payload
+            }
+        }
+
+        case 'UPDATE_REMAINING_TIME': {
+            return {
+                ...state,
+                remainingGameTime: action.payload
             }
         }
 

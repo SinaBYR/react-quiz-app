@@ -17,3 +17,4 @@ export type ACTIONTYPES =
 | { type: "UPDATE_CURRENT_QUESTION"; payload: STORE_RESTRUCTURED_DATA }
 | { type: "START_GAME"}
 | { type: "FINISH_GAME"}
+| { type: "UPDATE_REMAINING_TIME", payload: number|null}

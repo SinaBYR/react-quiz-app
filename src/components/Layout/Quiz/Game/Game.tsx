@@ -11,24 +11,26 @@ import { StageQuestionObject } from "../../../../types/types";
 import { decode } from 'html-entities'
 
 export const Game = () => {
-    const { result, formData } = useContext(StateContext) as InitialStateType
+    const { apiData, questions, formData, remainingGameTime } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
     const [stage, setStage] = useState<number>(0)
-    const [questions, setQuestions] = useState<StageQuestionObject[]>([])
     const [currentQuestion, setCurrentQuestion] = useState<StageQuestionObject|null>(null)
-    const [gameTime, setGameTime] = useState<number|null>(null)
 
     useEffect(() => {
-        if(!result.length) {return}
+        if(!apiData.length) {return}
         // save array of restructured questions
-        setQuestions(restructure(result))
+        const restructuredData = restructure(apiData)
+        dispatch({ type: 'STORE_RESTRUCTURED_DATA', payload: restructuredData })
+        
         if(formData?.time === '0') {
-            return setGameTime(null)
+            // return setGameTime(null)
+            return dispatch({ type: 'UPDATE_REMAINING_TIME', payload: null })
         }
 
-        setGameTime(Number(formData?.time))
+        // setGameTime(Number(formData?.time))
+        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: Number(formData?.time) })
         // console.log('restructure useEffect ran!')
-    }, [result])
+    }, [apiData])
     
     useEffect(() => {
         // Filter out current stage question based on stage state value.
@@ -38,12 +40,13 @@ export const Game = () => {
     }, [questions, stage])
 
     useEffect(() => {
-        // return if gameTime is still not set by first useEffect
-        if(gameTime === null) {return}
+        // return if remainingGameTime is still not set by first useEffect
+        if(remainingGameTime === null) {return}
         let interval = setInterval(() => {
-            setGameTime(gameTime - 1)
+            // setGameTime(gameTime - 1)
+            dispatch({ type: 'UPDATE_REMAINING_TIME', payload: remainingGameTime - 1 })
         }, 1000)
-        if(gameTime < 0) {
+        if(remainingGameTime < 0) {
             clearInterval(interval);
             return dispatch({ type: 'FINISH_GAME'})
         }
@@ -51,10 +54,7 @@ export const Game = () => {
         return () => {
             clearInterval(interval)
         }
-    })
-    // if(gameTime) {
-    //     console.log(remainingTime(gameTime))
-    // }
+    }, [remainingGameTime])
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value
@@ -67,7 +67,7 @@ export const Game = () => {
             isCorrect: value === correctAnswer,
         }
         
-        setQuestions(newQuestions)
+        dispatch({ type: 'UPDATE_CURRENT_QUESTION', payload: newQuestions })
         
         setTimeout(() => {
             setStage(stage + 1)
@@ -87,7 +87,7 @@ export const Game = () => {
 
     return (
         <GameStyled>
-            <Header formData={formData} questions={questions} currentQuestion={currentQuestion} gameTime={gameTime} />
+            <Header formData={formData} questions={questions} currentQuestion={currentQuestion} />
             <Question text={decode(currentQuestion?.question)}/>
             <Form>
                 {displayedRadioInputs}
@@ -95,18 +95,3 @@ export const Game = () => {
         </GameStyled>
     )
 }
-
-{/* <div>
-{questions.map(({answer, question}) => {
-    return (
-        <div style={{padding: '1rem'}} key={question}>{answer}</div>
-    )
-})}
-</div>
-<button onClick={() => {
-setStage(stage + 1)
-}}>Next</button>
-<button onClick={() => {
-// console.log('api result: ', result)
-console.log('questions: ', questions)
-}}>Show</button> */}
