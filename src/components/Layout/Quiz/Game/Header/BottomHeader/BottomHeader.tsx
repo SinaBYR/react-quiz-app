@@ -32,7 +32,7 @@ export const BottomHeader = ({ questions, currentQuestion }: BottomHeaderProps) 
             {currentQuestion && <div><Stage current={currentQuestion.stage + 1} total={questions.length}/></div>}
             <div>
                 <Timer>
-                    <h2>{remainingGameTime ? remainingTime(remainingGameTime) : '-- : --'}</h2>
+                    <h2>{remainingGameTime !== null ? remainingTime(remainingGameTime) : '-- : --'}</h2>
                 </Timer>
             </div>
         </BottomHeaderStyled>
