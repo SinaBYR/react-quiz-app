@@ -1,9 +1,26 @@
-import { useState } from "react";
-import { LayoutStyled } from "./LayoutStyled"
+import styled from 'styled-components'
+import { useState } from "react"
 import { Showcase } from "./Showcase/Showcase"
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { Footer } from "./Footer/Footer";
-import { Quiz } from "./Quiz/Quiz";
+import { Footer } from "./Footer/Footer"
+import { Quiz } from "./Quiz/Quiz"
+
+const LayoutStyled = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.secondary};
+
+    & > *:first-child {
+        margin-top: auto;
+    }
+
+    & > *:last-child {
+        margin-top: auto;
+    }
+`
 
 const Layout = () => {
     const [page, setPage] = useState<'showcase'|'quiz'>('showcase')

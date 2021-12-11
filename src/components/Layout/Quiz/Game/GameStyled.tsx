@@ -9,7 +9,6 @@ export const GameStyled = styled.div`
     max-width: 860px;
     min-height: 480px;
     background-color: #F7F6F2;
-    padding: 2rem 0;
     padding: 2rem;
     margin: 0 auto;
     text-align: center;

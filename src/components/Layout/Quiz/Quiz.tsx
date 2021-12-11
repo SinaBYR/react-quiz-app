@@ -3,12 +3,14 @@ import { axios } from "../../../axios/axios";
 import { DispatchContext, StateContext } from "../../../store/context";
 import { InitialStateType } from "../../../store/reducer";
 import { FORMDATA } from "../../../types/types";
+import { Analysis } from "./Analysis/Analysis";
 import { CATEGORY_IDS } from "./category_ids";
 import { Game } from "./Game/Game";
 import { Setup } from "./Setup/Setup";
 
+
 export const Quiz = () => {
-    const { currentState } = useContext(StateContext) as InitialStateType
+    const { currentState, questions } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
     const [page, setPage] = useState<'setup' | 'game'>('setup')
     const [loading, setLoading] = useState<boolean>(false)
@@ -33,10 +35,10 @@ export const Quiz = () => {
             }
 
             const payload = {
-                result: resdata.results,
+                apiData: resdata.results,
                 formData: config
             }
-            dispatch({ type: 'store_data', payload})
+            dispatch({ type: 'STORE_API_DATA', payload})
             dispatch({ type: 'START_GAME' })
             // changePageHandler()
             setLoading(false)
@@ -50,7 +52,7 @@ export const Quiz = () => {
     if(currentState === 'in-game') {
         displayComponent = <Game />
     } else if(currentState === 'after-game') {
-        displayComponent = <p>FINISHED</p>
+        displayComponent = <Analysis results={questions}/>
     }
 
     return displayComponent
