@@ -1,10 +1,14 @@
+import { useContext } from "react"
 import styled from "styled-components"
+import { StateContext } from "../../../../../store/context"
+import { InitialStateType } from "../../../../../store/reducer"
 import { Chart } from "./Chart/Chart"
 import { GameSetup } from "./GameSetup/GameSetup"
 import { Heading } from "./Heading/Heading"
 
 const HeaderStyled = styled.header`
     display: block;
+    background-color: ${({ theme }) => theme.colors.secondary};
 `
 
 const WrapperStyled = styled.div`
@@ -14,13 +18,14 @@ const WrapperStyled = styled.div`
     width: 100%;
 `
 export const Header = () => {
+    const { remainingGameTime } = useContext(StateContext) as InitialStateType
     return (
         <HeaderStyled>
             <WrapperStyled>
                 <GameSetup />
                 <Chart />
             </WrapperStyled>
-            {/* <Heading /> */}
+            {remainingGameTime && <Heading time={remainingGameTime}/>}
         </HeaderStyled>
     )
 }

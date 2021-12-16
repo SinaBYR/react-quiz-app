@@ -9,15 +9,11 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 const ContainerStyled = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     width: 400px;
-    /* width: 400px; */
     height: 190px;
-    background-color: ${({ theme }) => theme.colors.secondary};
     color: #EEEEEE;
     padding: 1rem;
-    /* border: 1px solid gray; */
-    border-radius: 4px;
 `
 
 const ChartWrapperStyled = styled.div`
@@ -30,7 +26,7 @@ const LegendStyled = styled.div`
     
     & > div {
         width: 130px;
-        /* border: 1px solid red; */
+        margin: 16px 0;
     }
 
     & > div > span {

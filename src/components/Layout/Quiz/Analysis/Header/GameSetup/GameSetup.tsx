@@ -1,31 +1,17 @@
-import { useContext } from "react"
 import styled from "styled-components"
+import { useContext } from "react"
 import { StateContext } from "../../../../../../store/context"
 import { InitialStateType } from "../../../../../../store/reducer"
 
 const GameSetupStyled = styled.div`
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    width: 350px;
     width: 400px;
-    /* max-height: 200px; */
     height: 190px;
-    /* border: 1px solid red; */
-    /* border: 1px solid ${({ theme }) => theme.colors.secondary}; */
-    background-color: ${({ theme }) => theme.colors.secondary};
-    /* box-shadow: 0 0 4px ${({ theme }) => theme.colors.secondary}; */
     color: #EEEEEE;
     padding: 1rem;
-    border-radius: 4px;
-    margin-right: 4px;
-
-    h2 {
-        /* align-self: flex-start; */
-        /* width: 180px; */
-        text-align: left;
-        /* border: 1px solid black; */
-    }
+    padding-right: 2rem;
+    border-right: 1px solid gray;
 `
 
 const ItemsWrapperStyled = styled.div`
@@ -42,9 +28,8 @@ const ItemsWrapperStyled = styled.div`
 `
 
 const ItemStyled = styled.div`
-    margin: 4px 0;
-    margin: 16px 0;
-    /* border: 1px solid black; */
+    margin: 18px 0;
+
     & > * {
         margin-bottom: 12px;
     }

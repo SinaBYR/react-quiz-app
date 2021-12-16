@@ -1,28 +1,26 @@
 import styled from "styled-components"
 
 const HeadingStyled = styled.div`
-    background-color: ${({ theme }) => theme.colors.secondary};
     color: #EEEEEE;
     font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0.25rem;
     padding: 1rem;
-    border-radius: 4px;
+    margin-bottom: 4px;
+    border: 1px solid gray;
     
     & span {
-        font-weight: bolder;
-        font-size: 2rem;
-        background-color: green;
         color: white;
+        background-color: #008a00;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        padding: 0.5rem;
         border: 1px solid white;
-        padding: 0 1rem;
     }
 `
 
-export const Heading = () => {
+export const Heading = ({ time }: { time: number }) => {
     return (
         <HeadingStyled>
-            <h3>You finished the quiz <span>13</span> seconds earlier.</h3>
+            <p>You finished the quiz <span>{time}</span> seconds earlier.</p>
         </HeadingStyled>
     )
 }

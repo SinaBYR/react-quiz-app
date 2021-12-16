@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { decode } from "html-entities"
 
 const QuestionStyled = styled.div`
     display: flex;
@@ -6,7 +7,6 @@ const QuestionStyled = styled.div`
     background-color: ${({theme}) => theme.colors.secondary};
     padding: 1rem;
     margin-top: 1rem;
-    border-radius: 4px;
 `
 
 const SidePanelStyled = styled.div`
@@ -24,7 +24,7 @@ const QuestionStageStyled = styled.div`
     background-color: #303a41;
     font-size: 2.5rem;
     margin-bottom: 8px;
-    border-radius: 4px;
+    border-radius: 1px;
 `
 
 const QuestionTruthSign = styled.div`
@@ -33,9 +33,8 @@ const QuestionTruthSign = styled.div`
     align-items: center;
     width: 100px;
     height: 40px;
-    background-color: #01b801;
-    background-color: #d41212;
-    border-radius: 4px;
+    border-radius: 1px;
+    text-align: center;
 `
 
 const QuestionBodyStyled = styled.div`
@@ -57,12 +56,11 @@ const AnswersWrapperStyled = styled.div`
     }
 
     & > * {
-        /* border: 1px solid yellow; */
         width: 290px;
 
         & > div {
             display: inline-block;
-            background-color: #797979;
+            background-color: #636363;
             padding: 0.125rem 0.25rem;
             font-size: 14px;
             margin-bottom: 4px;
@@ -70,26 +68,35 @@ const AnswersWrapperStyled = styled.div`
     }
 `
 
-export const Question = () => {
+interface QuestionProps {
+    stage: number
+    isCorrect: boolean | null
+    question: string
+    answer: string | null
+    correctAnswer: string
+}
+
+export const Question = ({ stage, isCorrect, question, answer, correctAnswer }: QuestionProps) => {
     return (
         <QuestionStyled>
             <SidePanelStyled>
-                <QuestionStageStyled>4</QuestionStageStyled>
-                <QuestionTruthSign>Incorrect</QuestionTruthSign>
+                <QuestionStageStyled>{stage + 1}</QuestionStageStyled>
+                <QuestionTruthSign style={{backgroundColor: isCorrect === null ? 'gray' : isCorrect === false ? '#d41212' : '#008a00'}}>
+                    {isCorrect === null ? 'Not Answered' : isCorrect === false ? 'Incorrect' : 'Correct'}
+                </QuestionTruthSign>
             </SidePanelStyled>
             <QuestionBodyStyled>
                 <QuestionTextStyled>
-                    <p>The new One World Trade Center in Manhattan New York City was designed by which architect? </p>
+                    <p>{decode(question)}</p>
                 </QuestionTextStyled>
                 <AnswersWrapperStyled>
                     <div>
                         <div>Your Answer</div>
-                        <p>Fumihiko Maki</p>
+                        <p>{answer ? decode(answer) : 'Not answered'}</p>
                     </div>
                     <div>
                         <div>Correct Answer</div>
-                        <p>David Childs</p>
-                        {/* <p>he new One World Trade Center in Manhattan The new One World</p> */}
+                        <p>{decode(correctAnswer)}</p>
                     </div>
                 </AnswersWrapperStyled>
             </QuestionBodyStyled>
