@@ -12,6 +12,12 @@ const GameSetupStyled = styled.div`
     padding: 1rem;
     padding-right: 2rem;
     border-right: 1px solid gray;
+    
+    @media(max-width: 730px) {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid gray;
+    }
 `
 
 const ItemsWrapperStyled = styled.div`

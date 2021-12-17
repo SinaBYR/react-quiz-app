@@ -14,6 +14,10 @@ const ContainerStyled = styled.div`
     height: 190px;
     color: #EEEEEE;
     padding: 1rem;
+
+    @media(max-width: 730px) {
+        width: 100%;
+    }
 `
 
 const ChartWrapperStyled = styled.div`

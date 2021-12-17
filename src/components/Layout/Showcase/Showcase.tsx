@@ -22,8 +22,8 @@ const ShowcaseStyled = styled.div`
 export const Showcase = ({ clicked }: { clicked: MouseEventHandler<HTMLButtonElement>}) => {
     return (
         <ShowcaseStyled>
-            <h1>Movie Quiz</h1>
-            <h2>Satisfy your free time with some movie-relatd questions.</h2>
+            <h1>Quiz App</h1>
+            <h2>Satisfy your free time with some quick questions.</h2>
             <Button type="secondary" onClick={clicked}>Get Started</Button>
         </ShowcaseStyled>
     )

@@ -16,6 +16,12 @@ const WrapperStyled = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    @media(max-width: 730px) {
+        & {
+            flex-direction: column;
+        }
+    }
 `
 export const Header = () => {
     const { remainingGameTime } = useContext(StateContext) as InitialStateType

@@ -7,27 +7,63 @@ const QuestionStyled = styled.div`
     background-color: ${({theme}) => theme.colors.secondary};
     padding: 1rem;
     margin-top: 1rem;
+
+    @media(max-width: 800px) {
+        flex-direction: column;
+    }
 `
 
 const SidePanelStyled = styled.div`
     margin-right: 1rem;
-    height: 100px;
+
+    @media(max-width: 800px) {
+        display: flex;
+        align-content: center;
+    }
 `
 
-const QuestionStageStyled = styled.div`
+const QuestionStageStyled = styled.div<{bgColor: string}>`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100px;
     max-width: 100px;
-    height: 100%;
+    height: 75px;
+    background-color: ${({ bgColor }) => bgColor};
     font-size: 2.5rem;
     margin-bottom: 8px;
     border-radius: 1px;
+
+    @media(max-width: 800px) {
+        background-color: #303a41;
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
 `
+
+const QuestionTruthSign = styled.div`
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 1px;
+    text-align: center;
+
+    @media(max-width: 800px) {
+        display: flex;
+    }
+`
+
 const QuestionBodyStyled = styled.div`
     width: 100%;
     line-height: 1.4;
+    font-size: 1.1rem;
+
+    @media(max-width: 479px) {
+        font-size: 1rem;
+    }
 `
 
 const QuestionTextStyled = styled.div`
@@ -36,7 +72,6 @@ const QuestionTextStyled = styled.div`
 
 const AnswersWrapperStyled = styled.div`
     display: flex;
-    font-size: 14px;
     margin-top: 12px;
 
     & > *:first-child {
@@ -68,7 +103,10 @@ export const Question = ({ stage, isCorrect, question, answer, correctAnswer }: 
     return (
         <QuestionStyled>
             <SidePanelStyled>
-                <QuestionStageStyled style={{backgroundColor: isCorrect === null ? 'gray' : isCorrect === false ? '#d41212' : '#008a00'}}>{stage + 1}</QuestionStageStyled>
+                <QuestionStageStyled bgColor={isCorrect === null ? 'gray' : isCorrect === false ? '#d41212' : '#008a00'}>{stage + 1}</QuestionStageStyled>
+                <QuestionTruthSign style={{backgroundColor: isCorrect === null ? 'gray' : isCorrect === false ? '#d41212' : '#008a00'}}>
+                    {isCorrect === null ? 'Not Answered' : isCorrect === false ? 'Incorrect' : 'Correct'}
+                </QuestionTruthSign>
             </SidePanelStyled>
             <QuestionBodyStyled>
                 <QuestionTextStyled>

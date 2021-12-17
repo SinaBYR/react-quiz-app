@@ -13,7 +13,15 @@ const HeadingStyled = styled.div`
 
     & span {
         font-size: 1.5rem;
-        text-decoration: underline;
+    }
+    
+    @media(max-width: 479px) {
+        font-size: 1rem;
+
+        & span {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
     }
 `
 
