@@ -11,6 +11,7 @@ const QuestionStyled = styled.div`
 
 const SidePanelStyled = styled.div`
     margin-right: 1rem;
+    height: 100px;
 `
 
 const QuestionStageStyled = styled.div`
@@ -19,24 +20,11 @@ const QuestionStageStyled = styled.div`
     align-items: center;
     width: 100px;
     max-width: 100px;
-    height: 100px;
-    height: 75px;
-    background-color: #303a41;
+    height: 100%;
     font-size: 2.5rem;
     margin-bottom: 8px;
     border-radius: 1px;
 `
-
-const QuestionTruthSign = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 40px;
-    border-radius: 1px;
-    text-align: center;
-`
-
 const QuestionBodyStyled = styled.div`
     width: 100%;
     line-height: 1.4;
@@ -80,10 +68,7 @@ export const Question = ({ stage, isCorrect, question, answer, correctAnswer }: 
     return (
         <QuestionStyled>
             <SidePanelStyled>
-                <QuestionStageStyled>{stage + 1}</QuestionStageStyled>
-                <QuestionTruthSign style={{backgroundColor: isCorrect === null ? 'gray' : isCorrect === false ? '#d41212' : '#008a00'}}>
-                    {isCorrect === null ? 'Not Answered' : isCorrect === false ? 'Incorrect' : 'Correct'}
-                </QuestionTruthSign>
+                <QuestionStageStyled style={{backgroundColor: isCorrect === null ? 'gray' : isCorrect === false ? '#d41212' : '#008a00'}}>{stage + 1}</QuestionStageStyled>
             </SidePanelStyled>
             <QuestionBodyStyled>
                 <QuestionTextStyled>

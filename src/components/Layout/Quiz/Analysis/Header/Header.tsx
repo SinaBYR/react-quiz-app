@@ -25,7 +25,7 @@ export const Header = () => {
                 <GameSetup />
                 <Chart />
             </WrapperStyled>
-            {remainingGameTime && <Heading time={remainingGameTime}/>}
+            {remainingGameTime && remainingGameTime > 0 && <Heading time={remainingGameTime}/>}
         </HeaderStyled>
     )
 }

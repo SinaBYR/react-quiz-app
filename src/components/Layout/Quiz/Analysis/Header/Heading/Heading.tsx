@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import { remainingTimeAfterGame } from "./remainingTimeAfterGame"
-import { MdAutoAwesome } from 'react-icons/md'
-import { IoIosCloudDone } from 'react-icons/io'
-import { BsLightbulb } from 'react-icons/bs'
+import { AiFillStar } from 'react-icons/ai'
 
 const HeadingStyled = styled.div`
     display: flex;
@@ -12,26 +10,30 @@ const HeadingStyled = styled.div`
     padding: 1rem;
     margin-bottom: 4px;
     border: 1px solid gray;
-    
+
     & span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #303a41;
-        padding: 1rem;
-        margin-right: 16px;
-        border-radius: 1px;
-        box-shadow: 0 0 4px #171d1f;
+        font-size: 1.5rem;
+        text-decoration: underline;
     }
+`
+
+const IconStyled = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({theme}) => theme.colors.primary};
+    padding: 0.5rem;
+    margin-right: 16px;
+    border-radius: 50%;
 `
 
 export const Heading = ({ time }: { time: number }) => {
     return (
         <HeadingStyled>
-            <span>
-                <BsLightbulb />
-            </span>
-            <p>{remainingTimeAfterGame(time)}</p>
+            <IconStyled>
+                <AiFillStar color="#303a41" fontSize="24px"/>
+            </IconStyled>
+            <p>You finished the quiz <span>{remainingTimeAfterGame(time)}</span> early.</p>
         </HeadingStyled>
     )
 }
