@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, ChangeEvent } from "react";
+import { useContext, useEffect, useState, ChangeEvent, useRef } from "react";
 import { Form } from "./Form/Form";
 import { RadioInput } from "../../../Utility";
 import { Header } from "./Header/Header";
@@ -20,7 +20,7 @@ export const Game = () => {
     // In this case, we get an error "Warning: Can't perform a React state update on an unmounted component".
     // We avoid getting this error by clearing the timeout which is set inside onChangeHandler function
     // each time user answers a question.
-    let timeout: NodeJS.Timeout
+    const timeout = useRef<NodeJS.Timeout|null>(null)
 
     useEffect(() => {
         if(!apiData.length) {return}
@@ -29,41 +29,41 @@ export const Game = () => {
         dispatch({ type: 'STORE_RESTRUCTURED_DATA', payload: restructuredData })
         
         if(formData?.time === '0') {
-            // return setGameTime(null)
             return dispatch({ type: 'UPDATE_REMAINING_TIME', payload: null })
         }
-
-        // setGameTime(Number(formData?.time))
-        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: 2 })
-        // console.log('restructure useEffect ran!')
+        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: Number(formData?.time)})
     }, [apiData])
     
     useEffect(() => {
         // Filter out current stage question based on stage state value.
         const [curr] = questions.filter(question => question.stage === stage)
         setCurrentQuestion(curr)
-        // console.log('setting current question useEffect ran!')
     }, [questions, stage])
 
     useEffect(() => {
         // return if remainingGameTime is still not set by first useEffect
         if(remainingGameTime === null) {return}
         const interval = setInterval(() => {
-            // setGameTime(gameTime - 1)
             dispatch({ type: 'UPDATE_REMAINING_TIME', payload: remainingGameTime - 1 })
         }, 1000)
         if(remainingGameTime < 0) {
-            clearInterval(interval);
+            clearInterval(interval)
             return dispatch({ type: 'FINISH_GAME'})
         }
         
         return () => {
             // clear interval which was set up above inside this useEffect
             clearInterval(interval)
-            // clear timeout which is set everytime user answers a question (inside onChangeHandler)
-            clearTimeout(timeout)
         }
     }, [remainingGameTime])
+
+    // clear timeout which is set everytime user answers a question (inside onChangeHandler)
+    useEffect(() => {
+        // check to see if game remaining time is over, and then clear the timeout
+        if(remainingGameTime === 0) {
+            return () => clearTimeout(timeout.current!)
+        }
+    })
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value
@@ -78,7 +78,7 @@ export const Game = () => {
         
         dispatch({ type: 'UPDATE_CURRENT_QUESTION', payload: newQuestions })
         
-        timeout = setTimeout(() => {
+        timeout.current = setTimeout(() => {
             setStage(stage + 1)
             if((stage + 1) === (questions.length)) {
                 dispatch({ type: 'FINISH_GAME'})
@@ -91,8 +91,18 @@ export const Game = () => {
     // selectedBgColor: determines the background-color of selected RadioInput by user.
     // For more info, check out Utility/Button/index.tsx file
     let displayedRadioInputs = currentQuestion?.allAnswers.map(answer => (
-        <RadioInput name="answer" bgColor={currentQuestion.answer && currentQuestion.correctAnswer === answer ? 'green': null} selectedBgColor={currentQuestion.answer && currentQuestion.correctAnswer === answer ? 'green': 'red'} selected={currentQuestion.answer === answer} value={answer} onChange={onChangeHandler} key={answer}>{decode(answer)}</RadioInput>
+        <RadioInput
+            name="answer"
+            bgColor={currentQuestion.answer && currentQuestion.correctAnswer === answer ? 'green': null}
+            selectedBgColor={currentQuestion.answer && currentQuestion.correctAnswer === answer ? 'green': 'red'}
+            selected={currentQuestion.answer === answer}
+            value={answer}
+            disabled={currentQuestion.answer ? true : false}
+            onChange={onChangeHandler}
+            key={answer}
+            >{decode(answer)}</RadioInput>
     ))
+
 
     return (
         <GameStyled>
