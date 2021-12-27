@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Questions } from "./Questions/Questions";
 import { Header } from "./Header/Header";
+import { Topbar } from "./Topbar/Topbar";
 
 const ResultsStyled = styled.div`
     width: 100%;
@@ -11,17 +12,12 @@ const ResultsStyled = styled.div`
     margin: 0 auto;
     box-shadow: 0 0 8px #D0CAB2;
     border-radius: 4px;
-
-    & h1 {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
 `
 
 export const Results = () => {
     return (
         <ResultsStyled>
-            <h1>Quiz Recap</h1>
+            <Topbar />
             <Header />
             <Questions />
         </ResultsStyled>

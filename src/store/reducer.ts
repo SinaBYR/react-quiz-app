@@ -72,6 +72,18 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
             }
         }
 
+        case 'START_NEW_GAME': {
+            return {
+                ...state,
+                apiData: [],
+                formData: null,
+                currentState: 'pre-game',
+                questions: [],
+                remainingGameTime: null,
+                error: null
+            }
+        }
+
         default: {
             return state
         }
