@@ -15,6 +15,7 @@ export const Game = () => {
     const dispatch = useContext(DispatchContext)
     const [stage, setStage] = useState<number>(0)
     const [currentQuestion, setCurrentQuestion] = useState<StageQuestionObject|null>(null)
+    const [mounted, setMounted] = useState<boolean>(false)
     // We initialize a timeout variable to be able to clear the timeout later on when user
     // answers a question and time is up after a millisecond, so next question cannot be showed.
     // In this case, we get an error "Warning: Can't perform a React state update on an unmounted component".
@@ -23,6 +24,7 @@ export const Game = () => {
     const timeout = useRef<NodeJS.Timeout|null>(null)
 
     useEffect(() => {
+        setMounted(true)
         if(!apiData.length) {return}
         // save array of restructured questions
         const restructuredData = restructure(apiData)
@@ -31,7 +33,7 @@ export const Game = () => {
         if(formData?.time === '0') {
             return dispatch({ type: 'UPDATE_REMAINING_TIME', payload: null })
         }
-        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: Number(formData?.time)})
+        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: 5})
     }, [apiData])
     
     useEffect(() => {
@@ -54,16 +56,12 @@ export const Game = () => {
         return () => {
             // clear interval which was set up above inside this useEffect
             clearInterval(interval)
+            // check to see if game remaining time is over, and then clear the timeout
+            if(remainingGameTime === 0) {
+                clearTimeout(timeout.current!)
+            }
         }
     }, [remainingGameTime])
-
-    // clear timeout which is set everytime user answers a question (inside onChangeHandler)
-    useEffect(() => {
-        // check to see if game remaining time is over, and then clear the timeout
-        if(remainingGameTime === 0) {
-            return () => clearTimeout(timeout.current!)
-        }
-    })
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value
@@ -105,7 +103,7 @@ export const Game = () => {
 
 
     return (
-        <GameStyled>
+        <GameStyled mounted={mounted}>
             <Header formData={formData} questions={questions} currentQuestion={currentQuestion} />
             <Question text={decode(currentQuestion?.question)}/>
             <Form>
