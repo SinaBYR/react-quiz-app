@@ -8,14 +8,13 @@ import { DispatchContext, StateContext } from "../../../../store/context";
 import { InitialStateType } from "../../../../store/reducer";
 import { restructure } from "./customize-game-data";
 import { StageQuestionObject } from "../../../../types/types";
-import { decode } from 'html-entities'
+import { decode } from 'html-entities';
 
 export const Game = () => {
     const { apiData, questions, formData, remainingGameTime } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
     const [stage, setStage] = useState<number>(0)
     const [currentQuestion, setCurrentQuestion] = useState<StageQuestionObject|null>(null)
-    const [mounted, setMounted] = useState<boolean>(false)
     // We initialize a timeout variable to be able to clear the timeout later on when user
     // answers a question and time is up after a millisecond, so next question cannot be showed.
     // In this case, we get an error "Warning: Can't perform a React state update on an unmounted component".
@@ -24,7 +23,6 @@ export const Game = () => {
     const timeout = useRef<NodeJS.Timeout|null>(null)
 
     useEffect(() => {
-        setMounted(true)
         if(!apiData.length) {return}
         // save array of restructured questions
         const restructuredData = restructure(apiData)
@@ -33,7 +31,7 @@ export const Game = () => {
         if(formData?.time === '0') {
             return dispatch({ type: 'UPDATE_REMAINING_TIME', payload: null })
         }
-        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: 5})
+        dispatch({ type: 'UPDATE_REMAINING_TIME', payload: Number(formData?.time)})
     }, [apiData])
     
     useEffect(() => {
@@ -41,7 +39,7 @@ export const Game = () => {
         const [curr] = questions.filter(question => question.stage === stage)
         setCurrentQuestion(curr)
     }, [questions, stage])
-
+    
     useEffect(() => {
         // return if remainingGameTime is still not set by first useEffect
         if(remainingGameTime === null) {return}
@@ -101,9 +99,8 @@ export const Game = () => {
             >{decode(answer)}</RadioInput>
     ))
 
-
     return (
-        <GameStyled mounted={mounted}>
+        <GameStyled>
             <Header formData={formData} questions={questions} currentQuestion={currentQuestion} />
             <Question text={decode(currentQuestion?.question)}/>
             <Form>

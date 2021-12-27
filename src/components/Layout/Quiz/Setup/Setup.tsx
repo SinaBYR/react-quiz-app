@@ -1,18 +1,24 @@
-import styled from "styled-components";
-import { ChangeEvent, useState } from "react";
+import styled, { css } from "styled-components";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FORMDATA } from "../../../../types/types";
 import { Button, RadioInput } from "../../../Utility";
 import { Section } from "./Section/Section";
 import { SectionWrapper } from "./Section/SectionWrapper/SectionWrapper";
 import { BeatLoader } from 'react-spinners';
 
-const SetupStyled = styled.div`
+const SetupStyled = styled.div<{ mounted: boolean }>`
     width: 100%;
     max-width: 860px;
     background-color: #F7F6F2;
     padding: 3rem;
     margin: 0 auto;
     box-shadow: 0 0 8px #D0CAB2;
+    transition: transform 150ms;
+    transform: translateX(-10px);
+
+    ${({ mounted }) => mounted && css`
+        transform: translateX(0);
+    `}
 
     & > * {
         margin-bottom: 2rem;
@@ -26,17 +32,20 @@ export const Setup = ({ start, loading }: { start: (config: FORMDATA) =>  void; 
         time: '60',
         level: 'medium'
     })
-
+    const [mounted, setMounted] = useState(false)
     const onChangeHandler = (e: ChangeEvent) => {
         setFormData({
             ...formData,
             [e.target.getAttribute('name')!]: e.target.getAttribute('value')
         })
-        // console.log(formData.time)
     }
 
+    useEffect(() => {
+        setMounted(true)
+    })
+
     return (
-        <SetupStyled>
+        <SetupStyled mounted={mounted}>
             <h1 style={{textAlign: 'center'}}>Quiz Setup</h1>
             <form>
                 <Section>
