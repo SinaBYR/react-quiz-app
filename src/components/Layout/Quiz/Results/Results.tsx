@@ -1,9 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Questions } from "./Questions/Questions";
 import { Header } from "./Header/Header";
-import { useEffect, useState } from "react";
 
-const ResultsStyled = styled.div<{ mounted: boolean }>`
+const ResultsStyled = styled.div`
     width: 100%;
     max-width: 860px;
     min-height: 480px;
@@ -12,12 +11,6 @@ const ResultsStyled = styled.div<{ mounted: boolean }>`
     margin: 0 auto;
     box-shadow: 0 0 8px #D0CAB2;
     border-radius: 4px;
-    transition: transform 150ms;
-    transform: translateX(-10px);
-
-    ${({ mounted }) => mounted && css`
-        transform: translateX(0);
-    `}
 
     & h1 {
         text-align: center;
@@ -26,14 +19,8 @@ const ResultsStyled = styled.div<{ mounted: boolean }>`
 `
 
 export const Results = () => {
-    const [mounted, setMounted] = useState<boolean>(false)
-
-    useEffect(() => {
-        setMounted(true)
-    })
-
     return (
-        <ResultsStyled mounted={mounted}>
+        <ResultsStyled>
             <h1>Quiz Recap</h1>
             <Header />
             <Questions />
