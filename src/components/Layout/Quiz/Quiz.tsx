@@ -3,27 +3,18 @@ import { axios } from "../../../axios/axios";
 import { DispatchContext, StateContext } from "../../../store/context";
 import { InitialStateType } from "../../../store/reducer";
 import { FORMDATA } from "../../../types/types";
-import { Analysis } from "./Analysis/Analysis";
+import { Results } from "./Results/Results";
 import { CATEGORY_IDS } from "./category_ids";
 import { Game } from "./Game/Game";
 import { Setup } from "./Setup/Setup";
 
-
 export const Quiz = () => {
-    const { currentState, questions } = useContext(StateContext) as InitialStateType
+    const { currentState } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
-    const [page, setPage] = useState<'setup' | 'game'>('setup')
     const [loading, setLoading] = useState<boolean>(false)
 
-    const changePageHandler = () => {
-        if(page === 'setup') {
-            return setPage('game')
-        }
-
-        setPage('setup')
-    }
-
     const startGame = async (config: FORMDATA) => {
+        dispatch({ type: 'STORE_ERROR_DATA', payload: null })
         setLoading(true)
         try {
             const url = `?amount=${config.noq}&category=${CATEGORY_IDS[config.category]}&difficulty=${config.level}&type=multiple`
@@ -40,10 +31,10 @@ export const Quiz = () => {
             }
             dispatch({ type: 'STORE_API_DATA', payload})
             dispatch({ type: 'START_GAME' })
-            // changePageHandler()
             setLoading(false)
         } catch(err) {
             console.log(err)
+            dispatch({ type: 'STORE_ERROR_DATA', payload: 'An error occured. Please try again.' })
             setLoading(false)
         }
     }
@@ -52,7 +43,7 @@ export const Quiz = () => {
     if(currentState === 'in-game') {
         displayComponent = <Game />
     } else if(currentState === 'after-game') {
-        displayComponent = <Analysis results={questions}/>
+        displayComponent = <Results />
     }
 
     return displayComponent

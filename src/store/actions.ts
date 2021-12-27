@@ -18,3 +18,4 @@ export type ACTIONTYPES =
 | { type: "START_GAME"}
 | { type: "FINISH_GAME"}
 | { type: "UPDATE_REMAINING_TIME", payload: number|null}
+| { type: "STORE_ERROR_DATA", payload: string|null }

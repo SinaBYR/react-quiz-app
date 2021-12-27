@@ -7,7 +7,8 @@ export interface InitialStateType {
     formData: FORMDATA|null;
     currentState: 'pre-game'|'in-game'|'after-game';
     questions: StageQuestionObject[];
-    remainingGameTime: number|null
+    remainingGameTime: number|null;
+    error: string|null;
 }
 
 export const initialState: InitialStateType = {
@@ -15,7 +16,8 @@ export const initialState: InitialStateType = {
     formData: null,
     currentState: 'pre-game',
     questions: [],
-    remainingGameTime: null
+    remainingGameTime: null,
+    error: null
 }
 
 export function reducer(state = initialState, action: ACTIONTYPES): InitialStateType {
@@ -25,6 +27,13 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
                 ...state,
                 apiData: action.payload.apiData,
                 formData: action.payload.formData
+            }
+        }
+
+        case 'STORE_ERROR_DATA': {
+            return {
+                ...state,
+                error: action.payload
             }
         }
 

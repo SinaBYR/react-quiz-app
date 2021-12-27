@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { FORMDATA } from "../../../../types/types";
 import { Button, RadioInput } from "../../../Utility";
 import { Section } from "./Section/Section";
 import { SectionWrapper } from "./Section/SectionWrapper/SectionWrapper";
 import { BeatLoader } from 'react-spinners';
+import { StateContext } from "../../../../store/context";
+import { InitialStateType } from "../../../../store/reducer";
 
 const SetupStyled = styled.div<{ mounted: boolean }>`
     width: 100%;
@@ -25,7 +27,14 @@ const SetupStyled = styled.div<{ mounted: boolean }>`
     }
 `
 
+const ErrorStyled = styled.div`
+    padding: 1rem;
+    border: 1px solid red;
+    border-radius: 2px;
+`
+
 export const Setup = ({ start, loading }: { start: (config: FORMDATA) =>  void; loading: boolean}) => {
+    const { error } = useContext(StateContext) as InitialStateType
     const [formData, setFormData] = useState<FORMDATA>({
         category: 'general',
         noq: '10',
@@ -85,6 +94,9 @@ export const Setup = ({ start, loading }: { start: (config: FORMDATA) =>  void; 
                     </SectionWrapper>
                 </Section>
             </form>
+            {
+                error && <ErrorStyled>An error occured. Please try again.</ErrorStyled>
+            }
             <Button style={{margin: '0 auto'}} type="secondary" onClick={() => start(formData)}>
                 {
                     loading ? <BeatLoader /> : 'Start Now'
