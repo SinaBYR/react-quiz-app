@@ -9,7 +9,7 @@ import { Game } from "./Game/Game";
 import { Setup } from "./Setup/Setup";
 
 export const Quiz = () => {
-    const { currentState } = useContext(StateContext) as InitialStateType
+    const { questions, currentState, formData } = useContext(StateContext) as InitialStateType
     const dispatch = useContext(DispatchContext)
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -39,11 +39,21 @@ export const Quiz = () => {
         }
     }
 
+    const restart = () => {
+        const newQuestions = [...questions]
+        newQuestions.forEach(question => question.answer = null)
+        const payload = {
+            questions: newQuestions,
+            remainingTime: Number(formData?.time)
+        }
+        dispatch({ type: 'RESTART_GAME', payload })
+    }
+
     let displayComponent = <Setup start={startGame} loading={loading}/>
     if(currentState === 'in-game') {
         displayComponent = <Game />
     } else if(currentState === 'after-game') {
-        displayComponent = <Results />
+        displayComponent = <Results restart={restart}/>
     }
 
     return displayComponent

@@ -83,6 +83,15 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
             }
         }
 
+        case 'RESTART_GAME': {
+            return {
+                ...state,
+                currentState: 'in-game',
+                questions: action.payload.questions,
+                remainingGameTime: action.payload.remainingTime
+            }
+        }
+
         default: {
             return state
         }
