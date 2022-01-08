@@ -12,9 +12,23 @@ const TopbarStyled = styled.div`
     & > *:first-child {
         margin-right: auto;
     }
+
+    & > *:last-child {
+        margin-left: 0.5rem;
+    }
+
+    @media(max-width: 479px) {
+        & > *:last-child {
+            display: none;
+        }
+    }
 `
 
-export const Topbar = () => {
+interface TopbarProps {
+    restart: () => void
+}
+
+export const Topbar = ({ restart } : TopbarProps) => {
     const dispatch = useContext(DispatchContext)
 
     const onClickHandler = () => {
@@ -25,6 +39,7 @@ export const Topbar = () => {
         <TopbarStyled>
             <h1>Quiz Recap</h1>
             <Button type="secondary" onClick={onClickHandler}>New Game</Button>
+            <Button type="secondary" onClick={restart}><VscDebugRestart /></Button>
         </TopbarStyled>
     )
 }

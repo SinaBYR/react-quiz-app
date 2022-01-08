@@ -14,10 +14,14 @@ const ResultsStyled = styled.div`
     border-radius: 4px;
 `
 
-export const Results = () => {
+interface ResultsProps {
+    restart: () => void
+}
+
+export const Results = ({ restart }: ResultsProps) => {
     return (
         <ResultsStyled>
-            <Topbar />
+            <Topbar restart={restart}/>
             <Header />
             <Questions />
         </ResultsStyled>
