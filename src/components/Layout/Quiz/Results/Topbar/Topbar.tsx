@@ -1,13 +1,17 @@
-import { useContext } from "react"
 import styled from "styled-components"
+import { useContext } from "react"
 import { DispatchContext } from "../../../../../store/context"
 import { Button } from "../../../../Utility"
+import { VscDebugRestart } from 'react-icons/vsc'
 
 const TopbarStyled = styled.div`
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+
+    & > *:first-child {
+        margin-right: auto;
+    }
 `
 
 export const Topbar = () => {

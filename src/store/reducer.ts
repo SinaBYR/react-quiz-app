@@ -76,7 +76,6 @@ export function reducer(state = initialState, action: ACTIONTYPES): InitialState
             return {
                 ...state,
                 apiData: [],
-                formData: null,
                 currentState: 'pre-game',
                 questions: [],
                 remainingGameTime: null,
