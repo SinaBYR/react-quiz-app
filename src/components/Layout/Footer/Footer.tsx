@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <FooterStyled>
             {/* <p>Developed by Sina Beyraghdar.</p> */}
-            <p>Quiz Data Provided by <span>Open Trivia Database</span>.</p>
+            <p>Quiz Data Provided by <a href="https://opentdb.com/" target="_blank" rel="noopener noreferrer">Open Trivia Database</a>.</p>
             {/* github link */}
         </FooterStyled>
     )

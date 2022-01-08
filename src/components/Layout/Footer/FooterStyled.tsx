@@ -9,8 +9,8 @@ export const FooterStyled = styled.footer`
     color: ${({ theme }) => theme.colors.secondary};
     text-align: center;
 
-    & span {
-        text-decoration: underline;
+    & a {
+        color: inherit;
         font-style: italic;
     }
 `
