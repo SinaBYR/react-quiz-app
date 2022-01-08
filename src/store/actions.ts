@@ -20,3 +20,4 @@ export type ACTIONTYPES =
 | { type: "START_GAME"}
 | { type: "FINISH_GAME"}
 | { type: "START_NEW_GAME" }
+| { type: "RESTART_GAME", payload: { questions: StageQuestionObject[], remainingTime: number } }
