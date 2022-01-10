@@ -42,7 +42,7 @@ const ItemStyled = styled.div`
 `
 
 export const GameSetup = () => {
-    const { formData, remainingGameTime } = useContext(StateContext) as InitialStateType
+    const { formData } = useContext(StateContext) as InitialStateType
     return (
         <GameSetupStyled>
             <h2>Game Setup</h2>

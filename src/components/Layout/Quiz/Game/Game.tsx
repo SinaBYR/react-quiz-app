@@ -54,7 +54,7 @@ export const Game = () => {
         return () => {
             // clear interval which was set up above inside this useEffect
             clearInterval(interval)
-            // check to see if game remaining time is over, and then clear the timeout
+            // check to see if game time is over, and then clear the timeout
             if(remainingGameTime === 0) {
                 clearTimeout(timeout.current!)
             }

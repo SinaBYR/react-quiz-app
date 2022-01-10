@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Button } from "../../Utility"
 import { MouseEventHandler } from "react"
+import { Button } from "../../Utility"
 
 const ShowcaseStyled = styled.div`
     display: flex;
@@ -23,7 +23,7 @@ export const Showcase = ({ clicked }: { clicked: MouseEventHandler<HTMLButtonEle
     return (
         <ShowcaseStyled>
             <h1>Quiz App</h1>
-            <h2>Satisfy your free time with some quick questions.</h2>
+            <h2>Satisfy your free time by challenging your knowledge.</h2>
             <Button type="secondary" onClick={clicked}>Get Started</Button>
         </ShowcaseStyled>
     )

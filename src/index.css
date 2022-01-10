@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 
 body {
+    font-family: 'Merriweather Sans', sans-serif;
     font-family: 'Mukta', sans-serif;
+    font-family: 'Archivo', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

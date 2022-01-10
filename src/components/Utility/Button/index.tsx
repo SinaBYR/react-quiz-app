@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactElement, ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 
 type Kind ='primary' | 'secondary' | 'warning' | 'success'; 
@@ -39,14 +39,3 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 export const Button = ({ type, children, ...rest}: ButtonProps) => {
     return <ButtonStyled kind={type} {...rest}>{children}</ButtonStyled>
 }
-
-// return '#8a0b46'
-// return '#00A19D'
-// return '#FF5F7E'
-// return '#EEEEEE'
-// return '#3DB2FF'
-// return '#FFBF86'
-// return '#49FF00'
-// return '#911F27'
-// return '#C6D57E'
-// return '#2FDD92'

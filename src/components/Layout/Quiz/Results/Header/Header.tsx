@@ -4,7 +4,7 @@ import { StateContext } from "../../../../../store/context"
 import { InitialStateType } from "../../../../../store/reducer"
 import { Chart } from "./Chart/Chart"
 import { GameSetup } from "./GameSetup/GameSetup"
-import { Heading } from "./Heading/Heading"
+import { RemainingTime } from "./RemainingTime/RemainingTime"
 
 const HeaderStyled = styled.header`
     display: block;
@@ -31,7 +31,7 @@ export const Header = () => {
                 <GameSetup />
                 <Chart />
             </WrapperStyled>
-            {remainingGameTime && remainingGameTime > 0 && <Heading time={remainingGameTime}/>}
+            {remainingGameTime && remainingGameTime > 0 && <RemainingTime time={remainingGameTime}/>}
         </HeaderStyled>
     )
 }
